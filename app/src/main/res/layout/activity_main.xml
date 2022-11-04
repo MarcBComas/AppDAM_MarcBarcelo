@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/article_heading">
         <LinearLayout
+            android:id="@+id/article_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -42,6 +43,18 @@
                 android:text="@string/article_text"
                 android:autoLink="web" >
             </TextView>
+            <EditText
+                android:autofillHints="Escribe comentario aquí..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/comment_editText">
+            </EditText>
+            <Button
+                android:id="@+id/add_comment"
+                android:text="@string/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Button>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
