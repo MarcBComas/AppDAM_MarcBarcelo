@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFC300</color>
+    <color name="colorPrimary">#FFBB86FC</color>
+    <color name="colorSecondary">#FF03DAC5</color>
+    <color name="ColorTerciary">#FFC300</color>
 </resources>
