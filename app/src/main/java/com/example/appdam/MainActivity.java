@@ -1,5 +1,8 @@
 package com.example.appdam;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,39 +15,49 @@ import android.view.GestureDetector;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GestureDetectorCompat;
 
 public class MainActivity extends AppCompatActivity{
-    private LinearLayout mLayout;
-    private EditText mEditText;
-    private Button mButton;
+
+    private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
+    private static final int CAMERA_REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mLayout = (LinearLayout) findViewById(R.id.article_linearlayout);
-        mEditText = (EditText) findViewById(R.id.comment_editText);
-        mButton = (Button) findViewById(R.id.add_comment);
-        mButton.setOnClickListener(onClick());
-        TextView textView = new TextView(this);
-        textView.setText("New text");
-    }
-
-    private View.OnClickListener onClick() {
-        return new View.OnClickListener() {
+        Button enableCamera = findViewById(R.id.enableCamera);
+        enableCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLayout.addView(createNewTextView(mEditText.getText().toString()));
+                if (hasCameraPermission()) {
+                    enableCamera();
+                } else {
+                    requestPermission();
+                }
             }
-        };
+        });
     }
 
-    private TextView createNewTextView(String text) {
-        final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        final TextView textView = new TextView(this);
-        textView.setLayoutParams(lparams);
-        textView.setText(text);
-        return textView;
+    private boolean hasCameraPermission() {
+        return ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(
+                this,
+                CAMERA_PERMISSION,
+                CAMERA_REQUEST_CODE
+        );
+    }
+
+    private void enableCamera() {
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
     }
 }
