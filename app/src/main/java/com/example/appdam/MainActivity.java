@@ -1,14 +1,19 @@
 package com.example.appdam;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.view.MotionEvent;
 import android.view.GestureDetector;
@@ -18,46 +23,44 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GestureDetectorCompat;
+import androidx.fragment.app.DialogFragment;
 
 public class MainActivity extends AppCompatActivity{
 
-    private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
-    private static final int CAMERA_REQUEST_CODE = 10;
+    private EditText toastText;
+    private Spinner phoneSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button enableCamera = findViewById(R.id.enableCamera);
-        enableCamera.setOnClickListener(new View.OnClickListener() {
+        phoneSpinner = (Spinner) findViewById(R.id.phoneSpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.phone_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        phoneSpinner.setAdapter(adapter);
+        toastText = (EditText) findViewById(R.id.toastText);
+        toastText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View v) {
-                if (hasCameraPermission()) {
-                    enableCamera();
-                } else {
-                    requestPermission();
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    Toast.makeText(getApplicationContext(),toastText.getText(), Toast.LENGTH_LONG).show();
+                    handled = true;
                 }
+                return handled;
             }
         });
     }
 
-    private boolean hasCameraPermission() {
-        return ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED;
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePicker();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(
-                this,
-                CAMERA_PERMISSION,
-                CAMERA_REQUEST_CODE
-        );
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePicker();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    private void enableCamera() {
-        Intent intent = new Intent(this, CameraActivity.class);
-        startActivity(intent);
-    }
 }
