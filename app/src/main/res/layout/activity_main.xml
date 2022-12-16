@@ -7,57 +7,29 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/toastText"
-        android:hint="Introduce frase para toast aquí"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:inputType="textCapSentences"
-        android:imeOptions="actionSend"
-        android:layout_marginBottom="20dp"
-        />
+        android:text="URL to download:"
+        android:textSize="17dp"/>
 
     <EditText
+        android:id="@+id/ETurl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Introduce correo aquí"
-        android:id="@+id/emailText"
-        android:layout_marginBottom="20dp"
-        android:inputType="textEmailAddress"/>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:id="@+id/phoneText"
-            android:hint="Introduce número aquí"
-            android:inputType="phone"/>
-
-        <Spinner
-            android:id="@+id/phoneSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        android:hint="https://url.com"/>
 
     <Button
+        android:id="@+id/Bdownload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time"
-        android:onClick="showTimePickerDialog" />
+        android:text="Download"
+        android:onClick="downloadurl"
+        android:layout_gravity="center"/>
 
-    <Button
+    <TextView
+        android:id="@+id/linkresult"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:onClick="showDatePickerDialog" />
-
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

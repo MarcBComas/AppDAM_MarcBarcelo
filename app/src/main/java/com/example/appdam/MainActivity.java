@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -25,42 +28,85 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.DialogFragment;
 
-public class MainActivity extends AppCompatActivity{
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-    private EditText toastText;
-    private Spinner phoneSpinner;
+public class MainActivity extends AppCompatActivity{
+    private EditText link;
+    private Button download;
+    private TextView urlcontent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        phoneSpinner = (Spinner) findViewById(R.id.phoneSpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.phone_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        phoneSpinner.setAdapter(adapter);
-        toastText = (EditText) findViewById(R.id.toastText);
-        toastText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    Toast.makeText(getApplicationContext(),toastText.getText(), Toast.LENGTH_LONG).show();
-                    handled = true;
-                }
-                return handled;
+        link = (EditText) findViewById(R.id.ETurl);
+        download = (Button) findViewById(R.id.Bdownload);
+        urlcontent = (TextView) findViewById(R.id.linkresult);
+    }
+
+    public void downloadurl(View v) throws IOException {
+        ConnectivityManager con = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = con.getActiveNetworkInfo();
+        if(nInfo !=null && nInfo.isConnected()){
+            new DownloadWebpageText().execute(link.getText().toString());
+        }else {
+            urlcontent.setText("No network connection available");
+        }
+    }
+
+    private class DownloadWebpageText extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+            try{
+                return downloadUrl(url[0]);
+            } catch (IOException e){
+                return "Unable to retrieve web page. URL may be invalid.";
             }
-        });
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            urlcontent.setText(result);
+        }
+
+    }
+    private String downloadUrl(String myURL) throws IOException{
+        InputStream is = null;
+        try{
+            URL url = new URL(myURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            conn.connect();
+            is = conn.getInputStream();
+            String contentAsString = reader(is);
+            return contentAsString;
+
+
+        }finally {
+            if(is != null){
+                is.close();
+            }
+        }
     }
 
-    public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePicker();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-    }
-
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePicker();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+    public String reader(InputStream stream) throws IOException {
+        String textReturn = "";
+        int ch = stream.read();
+        while(ch!=-1){
+            textReturn = textReturn + Character.toString((char)ch);
+        }
+        return textReturn;
     }
 
 }
