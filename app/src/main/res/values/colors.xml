@@ -11,4 +11,7 @@
     <color name="colorPrimary">#FFBB86FC</color>
     <color name="colorSecondary">#FF03DAC5</color>
     <color name="ColorTerciary">#FFC300</color>
+    <color name="logo_color">#FFFF0F</color>
+    <color name="version_color">#f0f0f0</color>
+    <color name="version_bkgrd">#1a1a48</color>
 </resources>
