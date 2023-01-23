@@ -1,12 +1,7 @@
 <resources>
-    <string name="app_name">Download URL</string>
-<string name="help">Help Screen</string>
-<string name="menu">Main Menu Screen</string>
-<string name="settings">Settings Screen</string>
-<string name="game">Game Screen</string>
-<string name="scores">Scores Screen</string>
-<string name="app_logo_top">BEEN THERE</string>
-<string name="app_logo_bottom">DONE THAT!</string>
-<string name="app_version_info">Version 2.0.0\nCopyright © 2011 Mamlambo\nAll
-    Rights Reserved.</string>
+    <string name="app_name">ScoreKeeper</string>
+    <string name="plus_button">Plus button</string>
+    <string name="minus_button">Minus button</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="day_mode">Day Mode</string>
 </resources>
