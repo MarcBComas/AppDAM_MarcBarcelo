@@ -1,93 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/teamName1"
-            android:text="Team 1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="120dp"
-            android:layout_centerHorizontal="true"
-            style="@style/TeamText" />
-        <ImageButton
-            android:id="@+id/minus1"
-            style="@style/MinusButtons"
-            android:onClick="onClick"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_toLeftOf="@id/score1"
-            android:layout_below="@id/teamName1"/>
-        <TextView
-            android:id="@+id/score1"
-            style="@style/ScoreText"
-            android:layout_below="@id/teamName1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"/>
-        <ImageButton
-            android:id="@+id/plus1"
-            style="@style/PlusButtons"
-            android:onClick="onClick"
-            android:layout_toRightOf="@id/score1"
-            android:layout_below="@id/teamName1"
-            android:layout_width="70dp"
-            android:layout_height="70dp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/teamName2"
-            android:text="Team 2"
-            style="@style/TeamText"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="120dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <ImageButton
-            android:id="@+id/minus2"
-            style="@style/MinusButtons"
-            android:layout_toLeftOf="@id/score2"
-            android:layout_below="@id/teamName2"
-            android:layout_width="70dp"
-            android:onClick="onClick"
-            android:layout_height="70dp"/>
-        <TextView
-            android:id="@+id/score2"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/teamName2"
-            style="@style/ScoreText"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"/>
-        <ImageButton
-            android:id="@+id/plus2"
-            style="@style/PlusButtons"
-            android:onClick="onClick"
-            android:layout_toRightOf="@id/score2"
-            android:layout_below="@id/teamName2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"/>
-
-    </RelativeLayout>
-
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:onClick="onClick"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+</android.support.constraint.ConstraintLayout>

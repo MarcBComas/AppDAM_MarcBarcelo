@@ -37,6 +37,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,93 +48,32 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity{
-    TextView tvscore1;
-    TextView tvscore2;
-    int score1;
-    int score2;
-    Toast limit;
+    RecyclerView mRecyclerView;
+    WordListAdapter mAdapter;
+    LinkedList<String> mWordList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvscore1 = (TextView) findViewById(R.id.score1);
-        tvscore2 = (TextView) findViewById(R.id.score2);
-        if (savedInstanceState != null) {
-            score1 = savedInstanceState.getInt("STATE_SCORE_1");
-            score2 = savedInstanceState.getInt("STATE_SCORE_2");
-            tvscore1.setText(String.valueOf(score1));
-            tvscore2.setText(String.valueOf(score2));
+        mWordList = new LinkedList<String>();
+        for (int i = 0 ; i <= 10; i++) {
+            mWordList.addLast(getString(R.string.texto) + " " + i);
         }
-        limit = Toast.makeText(this, "Limite alcanzado", Toast.LENGTH_SHORT);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        outState.putInt("STATE_SCORE1", score1);
-        outState.putInt("STATE_SCORE2", score2);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        int nightMode = AppCompatDelegate.getDefaultNightMode();
-        if(nightMode == AppCompatDelegate.MODE_NIGHT_YES){
-            menu.findItem(R.id.night_mode).setTitle(R.string.day_mode);
-        } else{
-            menu.findItem(R.id.night_mode).setTitle(R.string.night_mode);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.night_mode){
-            int nightMode = AppCompatDelegate.getDefaultNightMode();
-            if(nightMode == AppCompatDelegate.MODE_NIGHT_YES) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                recreate();
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                recreate();
-            }
-        }
-        return true;
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mAdapter = new WordListAdapter(this, mWordList);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.plus1:
-                if (tvscore1.getText().toString().equals("100")) {
-                    limit.show();
-                } else {
-                    tvscore1.setText(String.valueOf(Integer.parseInt(tvscore1.getText().toString()) + 1));
-                }
-                break;
-            case R.id.plus2:
-                if (tvscore2.getText().toString().equals("100")) {
-                    limit.show();
-                } else {
-                    tvscore2.setText(String.valueOf(Integer.parseInt(tvscore2.getText().toString()) + 1));
-                }
-                break;
-            case R.id.minus1:
-                if (tvscore1.getText().toString().equals("0")) {
-                    limit.show();
-                } else {
-                    tvscore1.setText(String.valueOf(Integer.parseInt(tvscore1.getText().toString()) - 1));
-                }
-                break;
-            case R.id.minus2:
-                if (tvscore2.getText().toString().equals("0")) {
-                    limit.show();
-                } else {
-                    tvscore2.setText(String.valueOf(Integer.parseInt(tvscore2.getText().toString()) - 1));
-                }
-                break;
-        }
+        mWordList.addLast("+ "+ getString(R.string.texto) + " " + mWordList.size());
+        mRecyclerView.getAdapter().notifyItemInserted(mWordList.size());
+        mRecyclerView.smoothScrollToPosition(mWordList.size());
     }
 
 }
