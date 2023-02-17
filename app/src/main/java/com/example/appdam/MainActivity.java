@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void actualizarSpinner() {
-        lista = db.getComentarios(spn, this);
+        lista = db.getComentarios(this);
         List<String> labels = new ArrayList<String>();
         for (int i = 0; i < lista.size(); i++) {
             labels.add(lista.get(i).getTitulo());

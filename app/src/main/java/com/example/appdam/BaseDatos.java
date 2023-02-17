@@ -34,7 +34,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public ArrayList<Comentario> getComentarios(Spinner spn, Context cttx) {
+    public ArrayList<Comentario> getComentarios(Context cttx) {
         listaComentarios.clear();
         SQLiteDatabase db = this.getWritableDatabase();
         List<String> labels = new ArrayList<String>();
