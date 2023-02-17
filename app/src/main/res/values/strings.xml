@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">RecyclerView</string>
-    <string name="crear">Creación de un comentario nuevo</string>
-    <string name="seleccionar">Seleccione un comentario</string>
+    <string name="app_name">WordListSQL</string>
 </resources>

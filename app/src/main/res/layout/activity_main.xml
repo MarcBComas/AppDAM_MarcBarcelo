@@ -1,97 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="20sp"
-        android:text="@string/crear"/>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_24dp" />
 
-    <EditText
-        android:id="@+id/nuevotitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:hint="Ponle un título a tu comentario"/>
-
-    <EditText
-        android:id="@+id/nuevotexto"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:inputType="text|textMultiLine"
-        android:layout_marginBottom="10dp"
-        android:hint="Texto del comentario nuevo"/>
-
-    <Button
-        android:id="@+id/crear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Crear"
-        android:onClick="onClick"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/seleccionar"/>
-
-
-    <Spinner
-        android:id="@+id/comentariospinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
-
-    <Button
-        android:id="@+id/seleccionarc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Seleccionar"
-        android:onClick="onClick"/>
-
-    <TextView
-        android:id="@+id/tituloc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="20dp"
-        android:background="@android:color/darker_gray"/>
-
-    <TextView
-        android:id="@+id/textoc"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="20dp"
-        android:background="@android:color/darker_gray"/>
-
-    <Button
-        android:id="@+id/eliminar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Eliminar"
-        android:onClick="onClick"/>
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
